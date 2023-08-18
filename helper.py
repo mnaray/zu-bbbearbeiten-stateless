@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+# In dieser Variable werden die Daten gespeichert. (Im Arbeitsspeicher)
 items = []
 
 
@@ -8,7 +9,7 @@ class Item:
     text: str
     isCompleted: bool = False
 
-
+# Hier findet die Ver-BBB-isierung statt.
 def add(text):
     text = text.replace('b', 'bbb').replace('B', 'Bbb')
     items.append(Item(text))
