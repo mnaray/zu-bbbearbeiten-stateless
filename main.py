@@ -8,9 +8,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    items = helper.get_all()
+    todos = helper.get_all()
     return render_template(
-        "index.html", items=items
+        "index.html", todos=todos
     )  # Hier wird das index.html mit den Daten in items gerendert.
 
 
