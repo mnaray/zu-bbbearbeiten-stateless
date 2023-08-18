@@ -25,10 +25,10 @@
 
         </form>
 
-        {% for item in items %}
+        {% for todo in todos %}
         <div class="ui segment" style="overflow:hidden; position: relative">
-            <span class="ui header" style="margin-left: 0.5em;">{{item.text}}</span>
-            {% if item.isCompleted %}
+            <span class="ui header" style="margin-left: 0.5em;">{{todo.title}}</span>
+            {% if todo.isCompleted %}
             <a class="ui green left corner label" href="/update/{{loop.index0}}"><i
                     class="check square outline icon"></i></a>
             {% else %}
@@ -43,7 +43,7 @@
 
         $(document).ready(function () {
 
-            document.item.text.focus();
+            document.todo.title.focus();
 
         });
 

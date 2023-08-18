@@ -1,28 +1,28 @@
 from dataclasses import dataclass
 
 # In dieser Variable werden die Daten gespeichert. (Im Arbeitsspeicher)
-items = []
+todos = []
 
 
 @dataclass
-class Item:
-    text: str
+class Todo:
+    title: str
     isCompleted: bool = False
 
 
 # Hier findet die Ver-BBB-isierung statt.
-def add(text):
-    text = text.replace("b", "bbb").replace("B", "Bbb")
-    items.append(Item(text))
+def add(title):
+    title = title.replace("b", "bbb").replace("B", "Bbb")
+    todos.append(Todo(title))
 
 
 def get_all():
-    return items
+    return todos
 
 
 def get(index):
-    return items[index]
+    return todos[index]
 
 
 def update(index):
-    items[index].isCompleted = not items[index].isCompleted
+    todos[index].isCompleted = not todos[index].isCompleted
