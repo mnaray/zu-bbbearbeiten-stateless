@@ -10,7 +10,7 @@ class Item:
 
 
 def add(text):
-    text = text.replace('b', 'bb').replace('B', 'Bbb')
+    text = text.replace('b', 'bbb').replace('B', 'Bbb')
     items.append(Item(text))
 
 
