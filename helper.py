@@ -26,3 +26,11 @@ def get(index):
 
 def update(index):
     todos[index].isCompleted = not todos[index].isCompleted
+
+
+def clear():
+    todos.clear()
+
+
+if __name__ == "__main__":
+    unittest.main()
