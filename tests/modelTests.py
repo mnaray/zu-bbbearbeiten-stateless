@@ -26,3 +26,13 @@ class TestModelMethods(unittest.TestCase):
         actual = helper.get(0)
         # assert
         self.assertEqual(expected, actual)
+
+    def test_bbbisierung(self):
+        # arrange
+        todo = helper.Todo("Babel")
+        expected = helper.Todo("Bbbabbbel")
+        # act
+        helper.add(todo.title)
+        actual = helper.get(0)
+        # assert
+        self.assertEqual(expected, actual)
