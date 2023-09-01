@@ -30,7 +30,3 @@ def update(index):
 
 def clear():
     todos.clear()
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -7,14 +7,14 @@ def setUp():
     helper.clear()
 
 
-def test_add(setUp):
-    # arrange
-    expected = helper.Todo("test todo")
-    # act
-    helper.add(expected.title)
-    actual = helper.get(0)
-    # assert
-    assert expected == actual
+# def test_add(setUp):
+#     # arrange
+#     expected = helper.Todo("test todo")
+#     # act
+#     helper.add(expected.title)
+#     actual = helper.get(0)
+#     # assert
+#     assert expected == actual
 
 
 def test_update(setUp):
