@@ -1,27 +1,19 @@
 import helper
 import pytest
 
+date = "2023-09-02"
+
 
 @pytest.fixture
 def setUp():
     helper.clear()
 
 
-# def test_add(setUp):
-#     # arrange
-#     expected = helper.Todo("test todo")
-#     # act
-#     helper.add(expected.title)
-#     actual = helper.get(0)
-#     # assert
-#     assert expected == actual
-
-
 def test_update(setUp):
     # arrange
-    todo = helper.Todo("test todo")
-    helper.add(todo.title)
-    expected = helper.Todo("test todo")
+    todo = helper.Todo("test todo", date)
+    helper.add(todo.title, date)
+    expected = helper.Todo("test todo", date)
     expected.isCompleted = True
     # act
     helper.update(0)
@@ -32,10 +24,10 @@ def test_update(setUp):
 
 def test_bbbisierung(setUp):
     # arrange
-    todo = helper.Todo("Babel")
-    expected = helper.Todo("Bbbabbbel")
+    todo = helper.Todo("Babel", date)
+    expected = helper.Todo("Bbbabbbel", date)
     # act
-    helper.add(todo.title)
+    helper.add(todo.title, date)
     actual = helper.get(0)
     # assert
     assert expected == actual
