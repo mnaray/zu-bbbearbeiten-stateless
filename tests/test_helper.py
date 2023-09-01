@@ -12,5 +12,5 @@ def test_add():
     helper.add(text, date)
 
     # Then: The most recently added to-do should have a date
-    item = helper.items[-1]
+    item = helper.get_all()[-1]
     assert isinstance(item.date, datetime.date)
