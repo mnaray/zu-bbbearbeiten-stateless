@@ -15,3 +15,4 @@ repos:
         entry: '#\d+'
         args: [--multiline, --negate]
         stages: [commit-msg]
+        always_run: true
