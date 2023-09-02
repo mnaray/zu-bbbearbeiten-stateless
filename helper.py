@@ -19,12 +19,12 @@ def oneWeekFromToday():
 
 
 def add(text, date=None):
-    text = text.replace('b', 'bbb').replace('B', 'Bbb')
+    text = text.replace("b", "bbb").replace("B", "Bbb")
 
     if date is None:
         date = oneWeekFromToday()
     else:
-        date = datetime.datetime.strptime(date, '%Y-%m-%d')
+        date = datetime.datetime.strptime(date, "%Y-%m-%d")
     items.append(Item(text, date))
     items.sort(key=operator.attrgetter("date"))
 
