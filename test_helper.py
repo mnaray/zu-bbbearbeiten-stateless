@@ -1,8 +1,31 @@
 import datetime
 
 import pytest
+import random
+
 
 import helper
+
+
+def test_category():
+    # Given: I have todos with different categories
+    todos = [
+        ("Kabelsalat auflösen", "Hausarbeit"),
+        ("Wäsche machen", "Hausarbeit"),
+        ("Trash Core-Album aufnehmen", "Kunst"),
+        ("Französisch lernen", "Hausaufgaben"),
+    ]
+
+    # When: I add the items
+    for todo in todos:
+        month = random.randrange(1, 13)
+        day = random.randrange(1, 31)
+        helper.add(todo[0], date=f"2023-{month}-{day}", category=todo[1])
+
+    # Then: They ought to have their categories
+    for item in helper.items:
+        categories = [todo[1] for todo in todos]
+        assert item.category in categories
 
 
 def test_sort():
