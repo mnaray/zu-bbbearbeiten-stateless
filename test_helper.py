@@ -1,11 +1,7 @@
 import datetime
-
 import pytest
 import random
-
-
 import helper
-
 
 
 def test_category():
@@ -28,7 +24,7 @@ def test_category():
         categories = [todo[1] for todo in todos]
         assert item.category in categories
 
-      
+
 def test_description():
     # Given: I have todos with descriptions
     todos = [
@@ -49,7 +45,6 @@ def test_description():
     # Then: They should have descriptions
     for item in helper.items:
         assert item.description is not None
-
 
 
 def test_sort():
