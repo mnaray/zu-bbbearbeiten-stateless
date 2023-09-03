@@ -22,6 +22,9 @@
                     <input autofocus name="text" type="text" name="text" placeholder="Fürs Modul lernen...">
                 </div>
 
+                <div for="description" class="ui pointing below label" style="margin-top: 0.5em">Was genau?</div>
+                <textarea type="text" name="description" id="description" rows="2"></textarea>
+
                 <div for="text" class="ui pointing below label" style="margin-top: 1em">Wann muss es fertig sein?
                 </div>
 
@@ -38,6 +41,7 @@
             <div class="ui raised segment" style="overflow:hidden">
                 <span class="ui black left label"><i class="calendar icon"></i>{{item.date.strftime("%d.%m.%Y")}}</span>
                 <span class="ui header" style="margin-left: 0.5em;">{{item.text}}</span>
+                <span class>{{item.description}}</span>
 
                 {% if item.isCompleted %}
                 <a class="ui green left corner label" href="/update/{{loop.index0}}"><i

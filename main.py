@@ -15,7 +15,8 @@ def index():
 def add():
     text = request.form.get("text")
     date = request.form.get("deadline")
-    helper.add(text, date)
+    description = request.form.get("description")
+    helper.add(text, date=date, description=description)
     return redirect(url_for("index"))
 
 

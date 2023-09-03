@@ -9,6 +9,7 @@ items = []
 class Item:
     text: str
     date: datetime
+    description: str
     isCompleted: bool = False
 
 
@@ -18,15 +19,16 @@ def oneWeekFromToday():
     return today + oneWeek
 
 
-def add(text, date=None):
+def add(text, date=None, description=None):
     text = text.replace("b", "bbb").replace("B", "Bbb")
 
     if date is None:
         date = oneWeekFromToday()
     else:
         date = datetime.datetime.strptime(date, "%Y-%m-%d")
-    items.append(Item(text, date))
-    items.sort(key=operator.attrgetter("date"))
+
+    items.append(Item(text, date, description))
+    items.sort(key=lambda x: x.date)
 
 
 def get_all():
