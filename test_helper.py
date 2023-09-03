@@ -5,6 +5,28 @@ import pytest
 import helper
 
 
+def test_description():
+    # Given: I have todos with descriptions
+    todos = [
+        (
+            "Zeitmaschine bauen",
+            "Vergangenheit kompilieren, Gegenwart laufen lassen, Zukunft debuggen",
+        ),
+        (
+            "AI-Nebenprojekt",
+            "Eine unglaublich nervige AI trainieren, die den Benutzer nur veräppelt",
+        ),
+    ]
+
+    # When: I add the items
+    for todo in todos:
+        helper.add(todo[0], description=todo[1])
+
+    # Then: They should have descriptions
+    for item in helper.items:
+        assert item.description is not None
+
+
 def test_sort():
     # Given: I have several to-dos with dates
     todos = [
@@ -20,7 +42,7 @@ def test_sort():
 
     # Then: They should be sorted by date
     for i in range(len(helper.items) - 1):
-        assert helper.items[i].date < helper.items[i + 1].date
+        assert helper.items[i].date <= helper.items[i + 1].date
 
 
 def test_add():
