@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import datetime
+import operator
 
 # In dieser Variable werden die Daten gespeichert. (Im Arbeitsspeicher)
 todos = []
@@ -20,6 +21,8 @@ class Todo:
 def add(title, date):
     title = title.replace("b", "bbb").replace("B", "Bbb")
     todos.append(Todo(title, date))
+    todos.sort(key=operator.attrgetter("date"))
+    # todos.sort(key=lambda o: o.date)
 
 
 def get_all():
