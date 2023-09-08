@@ -37,3 +37,19 @@ def test_sort(setUp):
     # Then: They should be sorted by date
     for i in range(len(helper.todos) - 1):
         assert helper.todos[i].date < helper.todos[i + 1].date
+
+
+def test_description():
+    # Given: I want to add a to-do with a description
+    import helper
+
+    text = "Lorem ipsum"
+    date = "2023-09-02"
+    description = "no description"
+
+    # When: I add the item
+    helper.add(text, date, description)
+
+    # Then: The most recently added to-do should have a description
+    item = helper.get_all()[-1]
+    assert item.description == description

@@ -10,17 +10,19 @@ todos = []
 class Todo:
     title: str
     date: datetime.datetime
+    description: str = "no description"
     isCompleted: bool = False
 
-    def __init__(self, _title, _date):
+    def __init__(self, _title, _date, _description="no description"):
         self.title = _title
         self.date = datetime.datetime.strptime(_date, "%Y-%m-%d")
+        self.description = _description
 
 
 # Hier findet die Ver-BBB-isierung statt.
-def add(title, date):
+def add(title, date, description="no description"):
     title = title.replace("b", "bbb").replace("B", "Bbb")
-    todos.append(Todo(title, date))
+    todos.append(Todo(title, date, description))
     todos.sort(key=operator.attrgetter("date"))
     # todos.sort(key=lambda o: o.date)
 
