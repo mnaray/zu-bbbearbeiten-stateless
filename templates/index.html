@@ -20,6 +20,11 @@
                 <div class="ui action input">
                     <input autofocus name="text" type="text" name="text" placeholder="Fürs Modul lernen...">
                     <input name="date" type="date">
+                    <select name="category" id="category">
+                        {% for category in categories %}
+                        <option value={{category.id}}>{{category.name}}</option>
+                        {% endfor %}
+                    </select>
                     <button class="ui blue button" type="submit">Hinzufügen</button>
                 </div>
             </div>

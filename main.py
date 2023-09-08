@@ -10,7 +10,7 @@ app = Flask(__name__)
 def index():
     todos = helper.get_all()
     return render_template(
-        "index.html", todos=todos
+        "index.html", todos=todos, categories=helper.categories
     )  # Hier wird das index.html mit den Daten in items gerendert.
 
 
@@ -18,7 +18,8 @@ def index():
 def add():
     text = request.form.get("text")
     date = request.form.get("date")
-    helper.add(text, date)
+    category = request.form.get("category")
+    helper.add(text, date, category)
     return redirect(
         url_for("index")
     )  # Hier wird index() mit der überarbeiteten Liste neu geladen.
