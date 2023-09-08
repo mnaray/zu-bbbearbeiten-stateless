@@ -55,3 +55,19 @@ def test_cat(setUp):
     assert helper.todos[0].category.name == "School"
     assert helper.todos[1].category.name == "Chores"
     assert helper.todos[2].category.name == "Overall"
+
+
+def test_description(setUp):
+    # Given: I want to add a to-do with a description
+    import helper
+
+    text = "Lorem ipsum"
+    date = "2023-09-02"
+    description = "no description"
+
+    # When: I add the item
+    helper.add(text, date, description)
+
+    # Then: The most recently added to-do should have a description
+    item = helper.get_all()[-1]
+    assert item.description == description

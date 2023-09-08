@@ -19,7 +19,8 @@ def add():
     text = request.form.get("text")
     date = request.form.get("date")
     category = request.form.get("category")
-    helper.add(text, date, category)
+    description = request.form.get("description")
+    helper.add(text, date, category, description)
     return redirect(
         url_for("index")
     )  # Hier wird index() mit der überarbeiteten Liste neu geladen.
