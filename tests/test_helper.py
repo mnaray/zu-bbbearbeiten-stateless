@@ -39,7 +39,7 @@ def test_sort(setUp):
         assert helper.todos[i].date < helper.todos[i + 1].date
 
 
-def test_description():
+def test_description(setUp):
     # Given: I want to add a to-do with a description
     import helper
 
