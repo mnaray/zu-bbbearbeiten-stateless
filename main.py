@@ -32,3 +32,12 @@ def update(index):
     return redirect(
         url_for("index")
     )  # Hier wird auch index() mit der überarbeiteten Liste neu geladen.
+
+
+@app.route("/download")
+def download():
+    return Response(
+        helper.get_csv(),
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; zu-bbbearbeiten.csv"},
+    )

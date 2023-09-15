@@ -59,7 +59,7 @@ def update(index):
 def get_csv():
     csv = ""
     for todo in todos:
-        csv += f"{todo.title},{todo.date},{todo.category.name},{todo.description},{todo.isCompleted}"
+        csv += f"{todo.title},{todo.date},{todo.category},{todo.description},{todo.isCompleted}"
         if not todos.index(todo) == len(todos) - 1:
             csv += "\n"
     return csv
