@@ -56,5 +56,14 @@ def update(index):
     todos[index].isCompleted = not todos[index].isCompleted
 
 
+def get_csv():
+    csv = ""
+    for todo in todos:
+        csv += f"{todo.title},{todo.date},{todo.category.name},{todo.description},{todo.isCompleted}"
+        if not todos.index(todo) == len(todos) - 1:
+            csv += "\n"
+    return csv
+
+
 def clear():
     todos.clear()
