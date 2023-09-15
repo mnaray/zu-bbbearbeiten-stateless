@@ -71,3 +71,23 @@ def test_description(setUp):
     # Then: The most recently added to-do should have a description
     item = helper.get_all()[-1]
     assert item.description == description
+
+
+def test_get_csv(setUp):
+    import csv
+
+    todos = [
+        ("Universum debuggen", "2023-09-06"),
+        ("Sinn des Lebens entdecken", "2023-09-01"),
+        ("Superheld werden", "2023-10-25"),
+        ("Netto null", "2050-01-01"),
+    ]
+
+    for todo in todos:
+        helper.add(todo[0], todo[1])
+
+    try:
+        csv.reader(helper.get_csv(), delimiter=",")
+        assert True
+    except csv.Error:
+        assert False
