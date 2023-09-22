@@ -19,6 +19,8 @@ jobs:
   pyinstaller-build:
     name: Publish .exe
     timeout-minutes: 10
+    permissions:
+      contents: write
     runs-on: windows-latest
     steps:
       - name: Create .exe
