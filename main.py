@@ -1,46 +1,45 @@
+from flask import Flask, Response, redirect, render_template, request, url_for
+from database import db
+import os
+
 import helper
-from flask import Flask, request, Response, render_template, redirect, url_for
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///todo.db"
+db.init_app(app)
+app.app_context().push()
+db.create_all()
 
-# @app.route("{route}") bestimmt was passiert wenn die jeweilige Route in die Suchleiste eingegeben wird. (Routing)
+
+@app.route("/getCSV")
+def get_csv():
+    return Response(
+        helper.get_csv(),
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=zu-bbbearbeiten.csv"},
+    )
 
 
 @app.route("/")
 def index():
-    todos = helper.get_all()
-    return render_template(
-        "index.html", todos=todos, categories=helper.categories
-    )  # Hier wird das index.html mit den Daten in items gerendert.
+    items = helper.get_all(sorted=True)
+    return render_template("index.html", items=items)
 
 
 @app.route("/add", methods=["POST"])
 def add():
     text = request.form.get("text")
-    date = request.form.get("date")
+    date = request.form.get("deadline")
     category = request.form.get("category")
     description = request.form.get("description")
-    helper.add(text, date, category, description)
-    return redirect(
-        url_for("index")
-    )  # Hier wird index() mit der überarbeiteten Liste neu geladen.
+    helper.add(text, date=date, category=category, description=description)
+    return redirect(url_for("index"))
 
 
 @app.route("/update/<int:index>")
 def update(index):
     helper.update(index)
-    return redirect(
-        url_for("index")
-    )  # Hier wird auch index() mit der überarbeiteten Liste neu geladen.
-
-
-@app.route("/download")
-def download():
-    return Response(
-        helper.get_csv(),
-        mimetype="text/csv",
-        headers={"Content-disposition": "attachment; zu-bbbearbeiten.csv"},
-    )
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":

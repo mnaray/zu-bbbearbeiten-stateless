@@ -1,69 +1,78 @@
-from dataclasses import dataclass
 import datetime
-import operator
-
-# In dieser Variable werden die Daten gespeichert. (Im Arbeitsspeicher)
-todos = []
-
-
-@dataclass
-class Category:
-    name: str
-    id: int
+import io
+import csv
+from flask_sqlalchemy import SQLAlchemy
+from database import db
 
 
-categories = [
-    Category("Overall", 0),
-    Category("School", 1),
-    Category("Work", 2),
-    Category("Chores", 3),
-]
-
-
-@dataclass
-class Todo:
-    title: str
-    date: datetime.datetime
-    category: Category
-    description: str = "no description"
-    isCompleted: bool = False
-
-    def __init__(
-        self, _title, _date, _category=categories[0], _description="no description"
-    ):
-        self.title = _title
-        self.date = datetime.datetime.strptime(_date, "%Y-%m-%d")
-        self.category = _category
-        self.description = _description
-
-
-# Hier findet die Ver-BBB-isierung statt.
-def add(title, date, category=categories[0], description="no description"):
-    title = title.replace("b", "bbb").replace("B", "Bbb")
-    todos.append(Todo(title, date, category, description))
-    todos.sort(key=operator.attrgetter("date"))
-
-
-def get_all():
-    return todos
-
-
-def get(index):
-    return todos[index]
-
-
-def update(index):
-    todos[index].isCompleted = not todos[index].isCompleted
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String)
+    date = db.Column(db.DateTime)
+    category = db.Column(db.String)
+    description = db.Column(db.String)
+    isCompleted = db.Column(db.Boolean, default=False)
 
 
 def get_csv():
-    csv = ""
-    for todo in todos:
-        csv += f"{todo.title},{todo.date},{todo.category},{todo.description},{todo.isCompleted}"
-        if not todos.index(todo) == len(todos) - 1:
-            csv += "\n"
-    return csv
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Titel", "Datum", "Kategorie", "Beschreibung", "Erledigt?"])
+    for item in Item.query.all():
+        writer.writerow(
+            [
+                item.text,
+                item.date.strftime("%d.%m.%Y"),
+                item.category,
+                item.description,
+                "x" if item.isCompleted else "o",
+            ]
+        )
+    return output.getvalue()
 
 
-def clear():
-    todos.clear()
+def oneWeekFromToday():
+    today = datetime.datetime.now()
+    oneWeek = datetime.timedelta(weeks=1)
+    return today + oneWeek
+
+
+def add(text, date=None, category=None, description=None):
+    text = text.replace("b", "bbb").replace("B", "Bbb")
+    if date is None:
+        date = oneWeekFromToday()
+    else:
+        date = datetime.datetime.strptime(date, "%Y-%m-%d")
+
+    if category is None:
+        category = "default"
+
+    if description is None:
+        description = ""
+
+    item = Item(text=text, date=date, category=category, description=description)
+    db.session.add(item)
+    db.session.commit()
+
+
+def get_all(sorted=False):
+    if sorted:
+        return [
+            item for item in Item.query.order_by(Item.date.asc(), Item.category.desc())
+        ]
+    else:
+        return Item.query.all()
+
+
+def get(id):
+    return Item.query.get(id)
+
+
+def update(id):
+    item = db.session.query(Item).get(id)
+    isCompleted = db.session.query(Item).get(id).isCompleted
+    print(item, isCompleted)
+    db.session.query(Item).filter(Item.id == id).update(
+        {Item.isCompleted: not isCompleted}
+    )
+    db.session.commit()
