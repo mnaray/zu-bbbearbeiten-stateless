@@ -28,7 +28,6 @@ jobs:
           spec: "./main.spec"
           requirements: "./requirements.txt"
           upload_exe_with_name: "zu-bbbearbeiten"
-          options: --onefile, --name "zu-bbbearbeiten", --windowed,
       - name: Upload .exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
